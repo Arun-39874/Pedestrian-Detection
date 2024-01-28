@@ -44,7 +44,7 @@ def perform_object_detection(frame):
 
 # Streamlit app
 def main():
-    st.title("Pedestrian Detection using YOLO")
+    st.title("Pedestrian Detection")
     
     # Open video file
     video_capture = cv2.VideoCapture("video.mp4")
