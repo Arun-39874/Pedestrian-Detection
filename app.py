@@ -2,13 +2,11 @@ import cv2
 import numpy as np
 import streamlit as st
 
-# Load YOLO model and COCO class names
 net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
 classes = []
 with open("coco.names", "r") as f:
     classes = [line.strip() for line in f]
 
-# Function to perform object detection
 def perform_object_detection(frame):
     height, width, _ = frame.shape
     blob = cv2.dnn.blobFromImage(frame, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
@@ -42,14 +40,11 @@ def perform_object_detection(frame):
 
     return frame
 
-# Streamlit app
 def main():
     st.title("Pedestrian Detection")
     
-    # Open video file
     video_capture = cv2.VideoCapture("video.mp4")
 
-    # Placeholder for the video player
     video_placeholder = st.empty()
 
     while True:
@@ -58,13 +53,10 @@ def main():
             st.warning("End of video stream.")
             break
 
-        # Perform object detection on the current frame
         frame_with_detection = perform_object_detection(frame)
 
-        # Display the frame with detection
         video_placeholder.image(frame_with_detection, channels="BGR", use_column_width=True)
 
-    # Release video capture object
     video_capture.release()
 
 if __name__ == "__main__":
